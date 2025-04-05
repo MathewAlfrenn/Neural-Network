@@ -1,10 +1,11 @@
 # Neural Network for Handwritten Digit Prediction
 
 This project is a **Neural Network** built from scratch to predict handwritten digits. The network is implemented using just **Python** and **NumPy**, without any external machine learning libraries or frameworks. It can be trained using a simple script, and a web application is provided to allow you to test the network by drawing your own numbers.
-
 **Project Overview**
 
 This project is a simple neural network built for the task of digit classification. It is based on the well-known MNIST dataset, which consists of images of handwritten digits (0-9). The model is trained to recognize these digits and can predict the digit for unseen images.
+
+Additionally, the model can also classify clothing items if opened with the code in the cloth folder, which was derived from the same code used for the number classification task. The clothing dataset is used to test the model’s ability to generalize.
 
 **Important Notes:**
 
@@ -18,6 +19,9 @@ It is important that you open the number or cloth folder directly. Do not open t
 ## Features
 
 - **Training the Model**: You can train the model using the `learn.py` file in the `learning` folder. After training, you can run the `test.py` file to see the accuracy of the model on the test dataset.
+- **Accuracy** :
+The number classification model has an accuracy of 98.5%.
+The clothing classification model has an accuracy of 90%.
 - **Resetting the Model**: If you want to reset the model's knowledge, simply delete the `model.npz` file. This will remove the saved model, and you can retrain it from scratch.
 - **Web Application**: The project includes a simple web app for testing the model by drawing numbers. To run it, go to `app.py`, run it, and visit the indicated link in the browser. Please note that predicting from the drawing feature is **still in beta** and has **low accuracy** at the moment.
 
