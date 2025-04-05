@@ -1,0 +1,19 @@
+# Virtual environment
+venv/
+
+# Python bytecode files
+__pycache__/
+*.pyc
+
+# IDE or editor folders
+.idea/
+.vscode/
+
+# Operating system files
+.DS_Store
+
+# Other sensitive files
+.env
+venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.dylib
+venv/lib/python3.12/site-packages/tensorflow/libtensorflow_cc.2.dylib
+venv/lib/python3.12/site-packages/tensorflow/compiler/mlir/stablehlo/stablehlo_extension.so

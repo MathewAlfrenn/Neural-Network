@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Handwritten Digit Recognition</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+      </head>
+      
+<body>
+    <h1>Handwritten Digit Recognition</h1>
+    <canvas id="canvas" width="150" height="150" style="background-color: black;"></canvas>
+    <button id="clear-button">Clear</button>
+    <button id="predict-button">Predict</button>
+    
+    <div id="result_box">
+        <h3>Prediction Result:</h3>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        // Set up canvas drawing
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+        let clickX = [], clickY = [], clickD = [];
+
+        // Function to add user gestures to canvas
+        function addUserGesture(x, y, dragging) {
+            clickX.push(x);
+            clickY.push(y);
+            clickD.push(dragging);
+        }
+
+        // Draw on canvas
+        function drawOnCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+            ctx.strokeStyle = "white";
+            ctx.lineJoin = "round";
+            ctx.lineWidth = 10;
+            
+            for (let i = 0; i < clickX.length; i++) {
+                ctx.beginPath();
+                if (clickD[i] && i) {
+                    ctx.moveTo(clickX[i - 1], clickY[i - 1]);
+                } else {
+                    ctx.moveTo(clickX[i] - 1, clickY[i]);
+                }
+                ctx.lineTo(clickX[i], clickY[i]);
+                ctx.closePath();
+                ctx.stroke();
+            }
+        }
+
+        // Add mouse down event listener to canvas
+        canvas.addEventListener('mousedown', (e) => {
+            let rect = canvas.getBoundingClientRect();
+            let mouseX = e.clientX - rect.left;
+            let mouseY = e.clientY - rect.top;
+            drawing = true;
+            addUserGesture(mouseX, mouseY);
+            drawOnCanvas();
+        });
+
+        // Mouse move event listener to draw on canvas
+        canvas.addEventListener('mousemove', (e) => {
+            if (drawing) {
+                let rect = canvas.getBoundingClientRect();
+                let mouseX = e.clientX - rect.left;
+                let mouseY = e.clientY - rect.top;
+                addUserGesture(mouseX, mouseY, true);
+                drawOnCanvas();
+            }
+        });
+
+        // Mouse up event listener to stop drawing
+        canvas.addEventListener('mouseup', () => {
+            drawing = false;
+        });
+
+        // Clear button to reset canvas
+        document.getElementById('clear-button').addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            clickX = [];
+            clickY = [];
+            clickD = [];
+            document.getElementById('result').textContent = "";
+        });
+
+        // Preprocess the canvas data
+        function preprocessCanvas() {
+            let tensor = tf.browser.fromPixels(canvas)
+                .resizeNearestNeighbor([28, 28])
+                .mean(2) // Convert to grayscale
+                .expandDims(2) // Add channel dimension
+                .expandDims() // Add batch dimension
+                .toFloat();
+            return tensor.div(255.0); // Normalize the tensor
+        }
+
+        // Predict button event listener
+        document.getElementById('predict-button').addEventListener('click', async () => {
+            let tensor = preprocessCanvas();
+
+            // Debug: Log the tensor before sending
+            console.log('Sending image tensor:', tensor);
+
+            // Send the image data to Flask for prediction
+            try {
+                let response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ image: tensor.arraySync() }) // Convert tensor to array
+                });
+
+                let data = await response.json();
+
+                // Debug: Log the response from Flask
+                console.log('Prediction response:', data);
+
+                // Display the prediction result
+                let predictedDigit = data.prediction;
+                document.getElementById('result').textContent = `Predicted Digit: ${predictedDigit}`;
+            } catch (error) {
+                console.error("Error during prediction:", error);
+            }
+        });
+    </script>
+</body>
+</html>
