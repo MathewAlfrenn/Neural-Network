@@ -21,15 +21,12 @@ def predict_digit(nn, image):
     """Given a 28x28 image, predict the digit using the trained neural network."""
     image = np.array(image).reshape(1, 784)  # Reshape to match the network input
     output = nn.forward(image)
-    predicted_label = np.argmax(output)  # Get the index of the max output (predicted class)
+    predicted_label = np.argmax(output)  # Get the index of the predicted class
     return predicted_label
 
-# Main function for testing (if needed)
+# Main function for testing
 def main():
     nn = initialize_network()
-
-    # You can include code here to test or load additional data
-    # This is just for testing predictions on a single image
     test_image = np.random.rand(28, 28)  # Example random image
     prediction = predict_digit(nn, test_image)
     print(f"Predicted Label: {prediction}")
