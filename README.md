@@ -21,7 +21,7 @@ It is important that you open the number or cloth folder directly. Do not open t
 - **Training the Model**: You can train the model using the `learn.py` file in the `learning` folder. After training, you can run the `test.py` file to see the accuracy of the model on the test dataset.
 - **Accuracy** :
 The number classification model has an accuracy of 98.5%.
-The clothing classification model has an accuracy of 90%.
+The clothing classification model has an accuracy of 88.77%.
 - **Resetting the Model**: If you want to reset the model's knowledge, simply delete the `model.npz` file. This will remove the saved model, and you can retrain it from scratch.
 - **Web Application**: The project includes a simple web app for testing the model by drawing numbers. To run it, go to `app.py`, run it, and visit the indicated link in the browser. Please note that predicting from the drawing feature is **still in beta** and has **low accuracy** at the moment.
 
