@@ -47,9 +47,9 @@ venv\Scripts\activate
 source venv/bin/activate
 **Install Requirements**
 Once the virtual environment is activated, install the required packages:
-
+```bash
 pip install -r requirements.txt
-
+```
 **Training the Model**
 
 To train the model, go to the learning folder and run the following script:
