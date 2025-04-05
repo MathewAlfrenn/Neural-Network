@@ -27,8 +27,8 @@ It is important that you open the number or cloth folder directly. Do not open t
 To get started, clone the repository and navigate to the project folder:
 
 ```bash
-git clone https://github.com/MathewAlfrenn/Neural_Network.git
-cd Neural_Network
+git clone https://github.com/MathewAlfrenn/Neural-Network.git
+cd Neural-Network
 ```
 
 **Setup Virtual Environment**
