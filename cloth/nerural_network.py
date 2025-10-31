@@ -62,8 +62,8 @@ class NeuralNetwork:
 
         return self.layers[-1]
 
-    def backpropagate(self, inputs, labels, epoch, initial_lr=0.01, decay_rate=0.01):
-        learning_rate = initial_lr
+   
+    def backpropagate(self, inputs, labels, learning_rate=0.01):
         outputs = self.forward(inputs)
         loss = cross_entropy_loss(labels, outputs)
 
@@ -75,7 +75,7 @@ class NeuralNetwork:
             dW = np.dot(self.layers[i].T, dL_dOut) / inputs.shape[0]
             dB = np.sum(dL_dOut, axis=0, keepdims=True) / inputs.shape[0]
             gradients_weights.insert(0, dW)
-            gradients_biases.insert(0, dB)
+            gradients_biases.insert(0, dB)  
 
             if i > 0:
                 dL_dOut = np.dot(dL_dOut, self.weights[i].T) * relu_derivative(self.layers[i])
@@ -87,8 +87,10 @@ class NeuralNetwork:
 
         return loss
 
-    def learning_rate_schedule(self, initial_lr, epoch, decay_rate=0.01):
-        return initial_lr * np.exp(-decay_rate * epoch)
+
+
+
+
 
 # Class names for the Fashion MNIST dataset
 class_names = [
