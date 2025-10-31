@@ -20,12 +20,12 @@ def format_output_probabilities(output):
     
     print("\nNumber Probabilities (%):")
     for number, percentage in enumerate(percentages[0]):
-        print(f"Number {number}: {percentage:.2f}%")
+        print(f"Number {number}: {percentage:.2f}%") 
     
     print(f"\nPredicted Number: {predicted_number}")
 
 def cross_entropy_loss(y_true, y_pred):
-    m = y_true.shape[0]
+    m = y_true.shape[0] #batch_size
     log_likelihood = -np.log(y_pred[range(m), y_true.argmax(axis=1)] + 1e-9)
     return np.sum(log_likelihood) / m
 
@@ -51,7 +51,7 @@ class NeuralNetwork:
         self.weights.append(0.01 * np.random.randn(hidden_layers[-1], output_size))
         self.biases.append(np.zeros((1, output_size)))
 
-    def forward(self, inputs):
+    def forward(self, inputs): #expect a (batch_size, 784) matrix
         self.layers = [inputs]
         
         for i in range(len(self.weights)):
@@ -64,32 +64,7 @@ class NeuralNetwork:
 
         return self.layers[-1]
 
-    def backpropagate(self, inputs, labels, epoch, initial_lr=0.01, decay_rate=0.01):
-    # Get the current learning rate based on the epoch
-        #learning_rate = self.learning_rate_schedule(initial_lr, epoch, decay_rate)
-        learning_rate = initial_lr
-        outputs = self.forward(inputs)
-        loss = cross_entropy_loss(labels, outputs)
-
-        dL_dOut = outputs - labels
-        gradients_weights = []
-        gradients_biases = []
-
-        for i in reversed(range(len(self.weights))):
-            dW = np.dot(self.layers[i].T, dL_dOut) / inputs.shape[0]
-            dB = np.sum(dL_dOut, axis=0, keepdims=True) / inputs.shape[0]
-            gradients_weights.insert(0, dW)
-            gradients_biases.insert(0, dB)
-
-            if i > 0:
-                dL_dOut = np.dot(dL_dOut, self.weights[i].T) * relu_derivative(self.layers[i])
-
-        # Update weights and biases
-        for i in range(len(self.weights)):
-            self.weights[i] -= learning_rate * gradients_weights[i]
-            self.biases[i] -= learning_rate * gradients_biases[i]
-
-        return loss
+   
     def backpropagate(self, inputs, labels, learning_rate=0.01):
         outputs = self.forward(inputs)
         loss = cross_entropy_loss(labels, outputs)
@@ -102,7 +77,7 @@ class NeuralNetwork:
             dW = np.dot(self.layers[i].T, dL_dOut) / inputs.shape[0]
             dB = np.sum(dL_dOut, axis=0, keepdims=True) / inputs.shape[0]
             gradients_weights.insert(0, dW)
-            gradients_biases.insert(0, dB)
+            gradients_biases.insert(0, dB)  
 
             if i > 0:
                 dL_dOut = np.dot(dL_dOut, self.weights[i].T) * relu_derivative(self.layers[i])
@@ -114,5 +89,3 @@ class NeuralNetwork:
 
         return loss
 
-    def learning_rate_schedule(self, initial_lr, epoch, decay_rate=0.01):
-        return initial_lr * np.exp(-decay_rate * epoch)

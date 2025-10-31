@@ -30,6 +30,7 @@ def main():
     test_image = np.random.rand(28, 28)  # Example random image
     prediction = predict_digit(nn, test_image)
     print(f"Predicted Label: {prediction}")
+    
 
 if __name__ == "__main__":
     main()

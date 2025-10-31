@@ -7,7 +7,7 @@ import os
 # not my code, source: https://www.kaggle.com/code/hojjatk/read-mnist-dataset
 # I did some minor modifications
 class MnistDataloader:
-    def __init__(self, training_images_filepath, training_labels_filepath,
+    def __init__(self, training_images_filepath, training_labels_filepath,  
                  test_images_filepath, test_labels_filepath):
         self.training_images_filepath = training_images_filepath
         self.training_labels_filepath = training_labels_filepath

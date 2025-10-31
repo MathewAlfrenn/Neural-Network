@@ -20,6 +20,11 @@ def predict():
 
     # Convert data to a NumPy array and reshape to (28, 28)
     image_data = np.array(data, dtype=np.float32).reshape(28, 28)
+    image_data = image_data * 255 
+    
+    print(image_data)
+    # Flatten
+    image_data = image_data.reshape(1, 784) #predict alr does that
 
     # Use the predict function
     predicted_label = main.predict_digit(nn, image_data)
