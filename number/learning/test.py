@@ -46,10 +46,19 @@ def main():
         if i == 0:
             print("**TEST SAMPLE**")
             print("Correct Label:", y_test[i])
-            print(sample_input)
-            plt.imshow(x_test[i], cmap='gray')
+
+            # Reshape to 28x28 and print as 0-255 values
+            grid_28x28 = np.array(x_test[i]).reshape(28, 28)
+            for row in grid_28x28:
+                print(' '.join(f"{int(val):3}" for val in row))
+
+            # Show image with matplotlib
+            plt.figure(figsize=(4, 4))
+            plt.imshow(grid_28x28, cmap='gray')
             plt.title(f"Correct Label: {y_test[i]}")
+            plt.axis('off')
             plt.show()
+
             print("Predicted Label:", predicted_label)
 
         # Count correct and incorrect predictions
@@ -77,7 +86,7 @@ def main():
 
             for idx, (image, true_label, pred_label) in enumerate(misclassified_images[start_idx:end_idx]):
                 ax = plt.subplot(images_per_row, images_per_column, idx + 1)
-                ax.imshow(image, cmap='gray')
+                ax.imshow(image.reshape(28,28), cmap='gray')
                 ax.set_title(f"True: {true_label}, Pred: {pred_label}")
                 ax.axis('off')
 

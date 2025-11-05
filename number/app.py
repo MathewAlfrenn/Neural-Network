@@ -22,7 +22,7 @@ def predict():
     image_data = np.array(data, dtype=np.float32).reshape(28, 28)
     image_data = image_data * 255 
     
-    print(image_data)
+    #print(image_data)
     # Flatten
     image_data = image_data.reshape(1, 784) #predict alr does that
 
@@ -37,20 +37,21 @@ def print_grid_from_received_data(received_data):
     Parameters:
     - received_data: A 4-dimensional list containing pixel values (in shape (28, 28, 1)).
 
-    This function prints the grid in a human-readable form.
+    This function prints the grid in a human-readable form as integers.
     """
     # Convert the received data into a NumPy array for easier manipulation
-    data_array = np.array(received_data)
+    data_array = np.array(received_data, dtype=np.float32)
 
     # Remove the unnecessary extra dimension (shape will become (28, 28))
     data_array = np.squeeze(data_array)
 
-    # Convert values to 0 and 1, where any non-zero value is considered white (1), and 0 is black (0)
-    grid = np.where(data_array > 0, 1, 0)
+    # Convert values to 0 or 255 (integer)
+    grid = np.where(data_array > 0, 255, 0).astype(int)
 
-    # Print the 28x28 grid
+    # Print the 28x28 grid as integers
     for row in grid:
         print(' '.join(map(str, row)))
+
 
 
 if __name__ == '__main__':

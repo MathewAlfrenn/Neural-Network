@@ -1,7 +1,9 @@
 import os
 import numpy as np
+import matplotlib.pyplot as plt
 from model_utils import load_model
 from neural_net import NeuralNetwork
+
 
 def initialize_network():
     """Initialize the neural network and load the pre-trained model."""
@@ -30,6 +32,11 @@ def main():
     test_image = np.random.rand(28, 28)  # Example random image
     prediction = predict_digit(nn, test_image)
     print(f"Predicted Label: {prediction}")
+    # Display the image
+    plt.imshow(test_image, cmap="gray")
+    plt.title(f"Predicted: {prediction}")
+    plt.axis("off")
+    plt.show()
     
 
 if __name__ == "__main__":

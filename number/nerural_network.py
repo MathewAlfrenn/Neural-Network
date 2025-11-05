@@ -10,11 +10,11 @@ def relu(x):
 def relu_derivative(x):
     return (x > 0).astype(float)
 
-def softmax(x):
-    exp_x = np.exp(x - np.max(x, axis=1, keepdims=True))
+def softmax(x): # x : (batch_size,10)
+    exp_x = np.exp(x - np.max(x, axis=1, keepdims=True)) 
     return exp_x / np.sum(exp_x, axis=1, keepdims=True)
 
-def format_output_probabilities(output):
+def format_output_probabilities(output): # output : (1,10)
     percentages = output * 100  
     predicted_number = np.argmax(output, axis=1)[0]
     
@@ -23,7 +23,7 @@ def format_output_probabilities(output):
         print(f"Number {number}: {percentage:.2f}%") 
     
     print(f"\nPredicted Number: {predicted_number}")
-
+     
 def cross_entropy_loss(y_true, y_pred):
     m = y_true.shape[0] #batch_size
     log_likelihood = -np.log(y_pred[range(m), y_true.argmax(axis=1)] + 1e-9)
@@ -74,7 +74,7 @@ class NeuralNetwork:
         gradients_biases = []
 
         for i in reversed(range(len(self.weights))):
-            dW = np.dot(self.layers[i].T, dL_dOut) / inputs.shape[0]
+            dW = np.dot(self.layers[i].T, dL_dOut) / inputs.shape[0] #batch_size,layer x batch_size,output
             dB = np.sum(dL_dOut, axis=0, keepdims=True) / inputs.shape[0]
             gradients_weights.insert(0, dW)
             gradients_biases.insert(0, dB)  
@@ -82,7 +82,7 @@ class NeuralNetwork:
             if i > 0:
                 dL_dOut = np.dot(dL_dOut, self.weights[i].T) * relu_derivative(self.layers[i])
 
-        # Update weights and biases
+        # Update weights and biases[]
         for i in range(len(self.weights)):
             self.weights[i] -= learning_rate * gradients_weights[i]
             self.biases[i] -= learning_rate * gradients_biases[i]
