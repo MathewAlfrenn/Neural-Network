@@ -2,6 +2,29 @@ import numpy as np
 from flask import Flask, render_template, request, jsonify
 import main  # Import the neural network module
 import matplotlib.pyplot as plt
+from PIL import Image
+
+def center_like_mnist(img):
+    ys, xs = np.nonzero(img > 0)
+    if len(ys) == 0:
+        return img
+    crop = img[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    h, w = crop.shape
+    scale = 20.0 / max(h, w)
+    new_h, new_w = max(1, round(h * scale)), max(1, round(w * scale))
+    small = np.array(
+        Image.fromarray(crop.astype(np.uint8)).resize((new_w, new_h), Image.BILINEAR),
+        dtype=np.float32,
+    )
+    out = np.zeros((28, 28), dtype=np.float32)
+    top, left = (28 - new_h) // 2, (28 - new_w) // 2
+    out[top:top + new_h, left:left + new_w] = small
+    total = out.sum()
+    if total > 0:
+        cy = (out.sum(axis=1) * np.arange(28)).sum() / total
+        cx = (out.sum(axis=0) * np.arange(28)).sum() / total
+        out = np.roll(out, (int(round(13.5 - cy)), int(round(13.5 - cx))), axis=(0, 1))
+    return out
 
 app = Flask(__name__)
 
@@ -21,6 +44,7 @@ def predict():
     # Convert data to a NumPy array and reshape to (28, 28)
     image_data = np.array(data, dtype=np.float32).reshape(28, 28)
     image_data = image_data * 255 
+    image_data = center_like_mnist(image_data)
     
     #print(image_data)
     # Flatten
