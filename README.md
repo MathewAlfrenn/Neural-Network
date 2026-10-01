@@ -90,6 +90,7 @@ If the terminal prints `No saved model found ... starting fresh`, you are not in
 
 
 ![Web app screenshot](number/media/empty-app.png)
+![Web app screenshot](number/media/3-app.png)
 
 
 **Technologies Used**
