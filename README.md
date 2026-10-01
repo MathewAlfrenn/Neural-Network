@@ -27,55 +27,69 @@ The clothing classification model has an accuracy of 88.77%.
 
 ## Installation
 
+> **Note:** The instructions below are for the **number** classifier (the `number/` folder), which contains `app.py`, `learning/`, `model.npz` and `requirements.txt`. Every command must be run from inside the `number` folder, because the code loads `model.npz` and the `archive/` dataset using relative paths.
+
 ### Clone the Repository
-To get started, clone the repository and navigate to the project folder:
+To get started, clone the repository and navigate to the `number` folder:
 
 ```bash
 git clone https://github.com/MathewAlfrenn/Neural-Network.git
-cd Neural-Network
+cd Neural-Network/number
 ```
 
 **Setup Virtual Environment**
 Create and activate a virtual environment (venv) for running the project:
 
-python -m venv venv
+```bash
+python3 -m venv venv
+```
 Activate the virtual environment:
 
 **On Windows:**
 venv\Scripts\activate
 **On macOS/Linux:**
 source venv/bin/activate
-**Install Requirements**
-Once the virtual environment is activated, install the required packages:
 
+(On Windows, use `python` instead of `python3`. On macOS/Linux, once the venv is active, `python` also works.)
+
+**Install Requirements**
+Once the virtual environment is activated, install the required packages (still inside the `number` folder):
+
+```bash
 pip install -r requirements.txt
+```
 
 **Training the Model**
 
-To train the model, go to the learning folder and run the following script:
+Training is optional, because a trained `model.npz` is already included. To train the model, run the following from the `number` folder:
 ```bash
-python learn.py
+python learning/learn.py
 ```
 This will train the neural network and save the trained model to model.npz. After training, you can evaluate the accuracy by running:
 ```bash
-python test.py
+python learning/test.py
 ```
-If you want to reset the model's knowledge, simply delete the model.npz file:
+If you want to reset the model's knowledge, simply delete the model.npz file (from the `number` folder):
 ```bash
 rm model.npz
 ```
 **Running the Web Application**
 
-To try out the web application and test the model with your own drawings:
+To try out the web application and test the model with your own drawings, run this from the `number` folder (the one that contains `app.py`):
 
-Go to app.py.
-Run the script:
 ```bash
 python app.py
 ```
 Open the indicated link in your browser (usually http://127.0.0.1:5000).
 You can draw a digit on the canvas to see the model's prediction.
 Note: The feature for predicting from drawings is still in beta and does not achieve high accuracy at this point.
+
+If the terminal prints `No saved model found ... starting fresh`, you are not in the `number` folder, so the model was not loaded. On macOS, if port 5000 is already in use (AirPlay Receiver), turn that off in System Settings or run `flask run --port 5001` instead.
+
+**Web App Screenshot**
+
+
+![Web app screenshot](empty-app.png)
 
 
 **Technologies Used**
