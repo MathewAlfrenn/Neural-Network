@@ -97,7 +97,17 @@ If the terminal prints `No saved model found ... starting fresh`, you are not in
 ![Web app screenshot](number/media/3-app.png)
 
 **Web App Video Demo**
-![Web app video](number/media/App-setup.mp4)
+
+***Setup Env***
+
+https://github.com/user-attachments/assets/6a5c3449-e27f-4cc8-ac38-c1815bdc70e7
+
+***App Demo***
+
+https://github.com/user-attachments/assets/32394508-2420-4f7d-a08d-60faf001e0db
+
+
+
 **Technologies Used**
 
 
