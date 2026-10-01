@@ -90,8 +90,8 @@ Note: The feature for predicting from drawings is still in beta and does not ach
 
 If the terminal prints `No saved model found ... starting fresh`, you are not in the `number` folder, so the model was not loaded. On macOS, if port 5000 is already in use (AirPlay Receiver), turn that off in System Settings or run `flask run --port 5001` instead.
 
+## Media
 **Web App Screenshot**
-
 
 ![Web app screenshot](number/media/empty-app.png)
 ![Web app screenshot](number/media/3-app.png)
