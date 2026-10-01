@@ -46,9 +46,13 @@ python3 -m venv venv
 Activate the virtual environment:
 
 **On Windows:**
+```bash
 venv\Scripts\activate
+```
 **On macOS/Linux:**
+```bash
 source venv/bin/activate
+```
 
 (On Windows, use `python` instead of `python3`. On macOS/Linux, once the venv is active, `python` also works.)
 
@@ -92,7 +96,8 @@ If the terminal prints `No saved model found ... starting fresh`, you are not in
 ![Web app screenshot](number/media/empty-app.png)
 ![Web app screenshot](number/media/3-app.png)
 
-
+**Web App Video Demo**
+![Web app video](number/media/setup-app+ex.mov)
 **Technologies Used**
 
 
