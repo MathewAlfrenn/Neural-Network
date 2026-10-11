@@ -1,6 +1,10 @@
 # Neural Network for Handwritten Digit Prediction
 
 This project is a **Neural Network** built from scratch to predict handwritten digits. The network is implemented using just **Python** and **NumPy**, without any external machine learning libraries or frameworks. It can be trained using a simple script, and a web application is provided to allow you to test the network by drawing your own numbers.
+
+### Demo
+Want to see the neural network in action? Check out the [Web App Video Demo](#media) to watch it recognize handwritten digits.
+
 **Project Overview**
 
 This project is a simple neural network built for the task of digit classification. It is based on the well-known MNIST dataset, which consists of images of handwritten digits (0-9). The model is trained to recognize these digits and can predict the digit for unseen images.
